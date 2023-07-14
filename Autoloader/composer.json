@@ -1,0 +1,18 @@
+{
+    "name": "abdallah-mostafa/custom-autoloader-package",
+    "type": "library",
+    "description": "A simple autoloader package",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Abdallah Mostafa",
+            "email": "abdallahmostafa377@email.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CustomAutoloaderPackage\\": "src/"
+        }
+    }
+}
