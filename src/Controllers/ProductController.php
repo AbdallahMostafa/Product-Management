@@ -22,12 +22,11 @@ class ProductController {
     public function store($request)
     {
         
-        $product = $this->factory->createProduct($request['type']);
-        $data = $product->fillProductData($product, $request);
-        $this->entityManager->persist($data);
+        $product = $this->factory->createProduct($request['type'],$request);
+        $this->entityManager->persist($$product);
         $this->entityManager->flush();
         jsonResponse([
             'message' => 'Product created successfully',
-            'request' => $data], 201);   
+            'request' => $$product], 201);   
     }
 }

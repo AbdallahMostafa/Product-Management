@@ -15,7 +15,7 @@ class ProductFactroy {
         $this->entityManager = $entityManager;
     }
 
-    public function createProduct(string $type) {
+    public function createProduct(string $type, $request) {
         if ($type === 'Book') {
             $product = new BookProduct();
         } elseif ($type === 'DVD') {
@@ -25,6 +25,8 @@ class ProductFactroy {
         } else {
             throw new InvalidArgumentException("Invalid product type: $type");
         }
+        
+        $product->fillProductData($request);
         return $product;
     }
 }
