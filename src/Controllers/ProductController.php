@@ -23,10 +23,10 @@ class ProductController {
     {
         
         $product = $this->factory->createProduct($request['type'],$request);
-        $this->entityManager->persist($$product);
+        $this->entityManager->persist($product);
         $this->entityManager->flush();
         jsonResponse([
             'message' => 'Product created successfully',
-            'request' => $$product], 201);   
+            'request' => $product], 201);   
     }
 }
