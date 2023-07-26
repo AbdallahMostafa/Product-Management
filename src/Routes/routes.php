@@ -4,7 +4,7 @@ use Src\Controllers\ProductController;
 
 $productController = $container->get(ProductController::class);
 return [
-    ['GET', '/api', [ProductController::class, 'index']],
+    ['GET', '/api/products', [$productController, 'index']],
     ['POST', '/api/products', [$productController, 'store']],
     // Additional routes...
 ];
