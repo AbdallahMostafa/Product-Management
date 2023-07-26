@@ -5,6 +5,7 @@ namespace Src\Controllers;
 use Doctrine\ORM\EntityManagerInterface;
 require_once __DIR__ .'/helpers/response.php';
 use Src\Factory\Product\ProductFactroy;
+use Src\Entities\Product;
 class ProductController {
 
     private $entityManager;
@@ -16,8 +17,24 @@ class ProductController {
     }
     public function index()
     {
+        $productRepository = $this->entityManager->getRepository(Product::class);
+        $products = $productRepository->findAll();
 
-        jsonResponse(['message' => 'HI'], 200);   
+        // Convert products to an array of data
+        $productData = [];
+        
+        foreach ($products as $product) {
+            $productData[] = [
+                'id' => $product->getId(),
+                'SKU' => $product->getSKU(),
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'attributes' => $product->getAttributes(),
+            ];
+        }
+
+        // Respond with the fetched product data
+        jsonResponse($productData, 200);
     }
     public function store($request)
     {
