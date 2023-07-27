@@ -5,4 +5,5 @@ use Src\Entities\Product;
 
 interface ProductInterface {
     function fillProductData($requets);
+    function getAttributes();
 }
