@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name:"dvds")]
 class DVDProduct extends Product implements ProductInterface {
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'integer')]
     protected int $size;
     
     // #[ORM\OneToOne(targetEntity:Product::class,  inversedBy:"dvds", cascade:["persist"])]
@@ -19,14 +19,19 @@ class DVDProduct extends Product implements ProductInterface {
         $this->setName($request['name']);
         $this->setPrice($request['price']);
         $this->setSKU($request['SKU']);
-        $this->setSize($request['size']);
+        $this->setSize($request['attributes']['size']);
         return $this;   
     }
-    public function getSize(): float {
+    public function getSize(): int {
         return $this->size;
     }
 
-    public function setSize(float $size): void {
+    public function setSize(int $size): void {
         $this->size = $size;
+    }
+    function getAttributes() {
+        return [
+            'size' => $this->getSize(),
+        ];
     }
 }

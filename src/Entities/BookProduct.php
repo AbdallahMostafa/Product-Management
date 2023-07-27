@@ -28,7 +28,12 @@ class BookProduct extends Product implements ProductInterface {
         $this->setName($request['name']);
         $this->setPrice($request['price']);
         $this->setSKU($request['SKU']);
-        $this->setWeight($request['weight']);
+        $this->setWeight($request['attributes']['weight']);
         return $this;
+    }
+    function getAttributes() {
+        return [
+            'weight' => $this->getWeight(),
+        ];
     }
 }
