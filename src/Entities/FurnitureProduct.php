@@ -17,10 +17,8 @@ class FurnitureProduct extends Product implements ProductInterface {
 
     #[ORM\Column(type:"integer")]
     private int $length;
-    // #[ORM\OneToOne(targetEntity:Product::class,  inversedBy:"furnitures", cascade:["persist"])]
-    // #[ORM\JoinColumn(name:"product_id", referencedColumnName:"id")]
-     
-    // private $product;
+   
+
     function fillProductData($request) {
         $this->setName($request['name']);
         $this->setPrice($request['price']);
@@ -49,7 +47,7 @@ class FurnitureProduct extends Product implements ProductInterface {
 
     public function setLength(int $length)
     {
-        $this->lenght = $length;
+        $this->length = $length;
     }
     public function getLength()
     {
