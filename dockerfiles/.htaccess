@@ -1,0 +1,29 @@
+RewriteEngine On
+
+# Set the base directory as the document root
+RewriteBase /
+
+# Redirect all requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+
+# Set the default charset to UTF-8
+AddDefaultCharset UTF-8
+
+# Disable directory browsing
+Options -Indexes
+
+# Disable server signature
+ServerSignature Off
+
+# Disable PHP engine for certain file types
+<FilesMatch "\.(ini|log|htaccess|htpasswd)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Set the maximum upload size
+php_value upload_max_filesize 32M
+php_value post_max_size 32M
+php_value max_execution_time 300
