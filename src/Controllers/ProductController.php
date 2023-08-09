@@ -24,9 +24,12 @@ class ProductController {
         $productData = [];
         
         foreach ($products as $product) {
+            $discriminatorType = $this->entityManager->getClassMetadata(get_class($product))->discriminatorValue; // get the type
+            
             $productData[] = [
                 'id' => $product->getId(),
                 'SKU' => $product->getSKU(),
+                'type' => $discriminatorType,
                 'name' => $product->getName(),
                 'price' => $product->getPrice(),
                 'attributes' => $product->getAttributes(),
@@ -37,9 +40,9 @@ class ProductController {
         jsonResponse($productData, 200);
     }
     public function store($request)
-    {
-        
+    {   
         $product = $this->factory->createProduct($request['type'],$request);
+        
         $this->entityManager->persist($product);
         $this->entityManager->flush();
         jsonResponse([
