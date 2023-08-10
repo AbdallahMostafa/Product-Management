@@ -3,8 +3,6 @@ namespace Src\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
 #[ORM\Entity]
 #[ORM\Table(name:"products")]
 #[ORM\InheritanceType("JOINED")]
@@ -14,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
       "DVD" => DVDProduct::class,
       "Furniture" => FurnitureProduct::class
  ])]
-abstract class Product {
+abstract class Product
+{
     
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
@@ -27,26 +26,72 @@ abstract class Product {
     #[ORM\Column(type: 'integer')]
     protected int $price;
 
-    public function getId(): ?int {
+     /**
+     * Get the unique identifier of the product.
+     *
+     * @return int|null The product ID.
+     */
+    public function getId(): ?int
+    {
         return $this->id;
     }
-    public function getName(): string {
-        return $this->name;
-    }
+    /**
+     * Set the name of the product.
+     *
+     * @param string $name The product name.
+     * @return void
+     */
     public function setName($name): void
     {
         $this->name =$name;
     }
-    public function getSKU(): string {
-        return $this->SKU;
+     /**
+     * Get the name of the product.
+     *
+     * @return string The product name.
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
-    public function setSKU($SKU): void {
+   
+    /**
+     * Set the Stock Keeping Unit (SKU) of the product.
+     *
+     * @param string $SKU The product SKU.
+     * @return void
+     */
+    public function setSKU($SKU): void
+    {
         $this->SKU = $SKU;
     }
-    public function getPrice(): int {
-        return $this->price;
+     /**
+     * Get the Stock Keeping Unit (SKU) of the product.
+     *
+     * @return string The product SKU.
+     */
+    public function getSKU(): string
+    {
+        return $this->SKU;
     }
-    public function setPrice($price): void {
+    
+    /**
+     * Set the price of the product.
+     *
+     * @param int $price The product price.
+     * @return void
+     */
+    public function setPrice($price): void
+    {
         $this->price = $price;
+    }
+    /**
+     * Get the price of the product.
+     *
+     * @return int The product price.
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
     }
 }
