@@ -4,11 +4,12 @@ import { Card, CardGroup } from 'react-bootstrap';
 import '../styles/productList.css';
 import { Link } from 'react-router-dom';
 import {Button} from 'react-bootstrap';
-import { setProducts, toggleProductSelection } from '../store/action';
+import { setProducts, toggleProductSelection, deleteSelectedProducts } from '../store/action';
 import { connect } from 'react-redux';
 import productConfig from './ProductConfig';
+import '../styles/productList.css';
 
-const ProductList = ( {products, loading, selectedProducts, setProducts, toggleProductSelection }) => {
+const ProductList = ( {products, loading, selectedProducts, setProducts, toggleProductSelection,  deleteSelectedProducts}) => {
 
    
     useEffect(() => {
@@ -23,11 +24,11 @@ const ProductList = ( {products, loading, selectedProducts, setProducts, toggleP
             console.error('Error fetching products:', error);
         }
     };
-    // TODO
+
     const handleDelete = () => {
-        console.log(selectedProducts);
-        console.log('DELETED');
+        deleteSelectedProducts(selectedProducts); // Dispatching action to delete selected products in the Redux store
     }
+
     const handleCheckboxChange = (productId) => {
         toggleProductSelection(productId); // Dispatching action to toggle product selection in the Redux store
     };
@@ -122,6 +123,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     setProducts,
     toggleProductSelection,
+    deleteSelectedProducts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
