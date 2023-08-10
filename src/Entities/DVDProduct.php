@@ -1,35 +1,61 @@
 <?php
 
 namespace Src\Entities;
+
 use Src\Interfaces\ProductInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-
 #[ORM\Entity]
 #[ORM\Table(name:"dvds")]
-class DVDProduct extends Product implements ProductInterface {
+class DVDProduct extends Product implements ProductInterface
+{
 
     #[ORM\Column(type: 'integer')]
     protected int $size;
     
-    // #[ORM\OneToOne(targetEntity:Product::class,  inversedBy:"dvds", cascade:["persist"])]
-    // #[ORM\JoinColumn(name:"product_id", referencedColumnName:"id")] 
-    // private $product;
-    function fillProductData ($request) {
+
+    /**
+     * Fill the product data from a request.
+     *
+     * @param array $request The request data.
+     * @return DVDProduct The updated DVDProduct instance.
+     */
+    function fillProductData($request)
+    {
         $this->setName($request['name']);
         $this->setPrice($request['price']);
         $this->setSKU($request['SKU']);
         $this->setSize($request['attributes']['size']);
-        return $this;   
+        return $this;
     }
-    public function getSize(): int {
+     /**
+     * Get the size of the DVD product.
+     *
+     * @return int The size.
+     */
+    public function getSize(): int
+    {
         return $this->size;
     }
+     /**
+     * Set the size of the DVD product.
+     *
+     * @param int $size The size to set.
+     * @return void
+     */
 
-    public function setSize(int $size): void {
+    public function setSize(int $size): void
+    {
         $this->size = $size;
     }
-    function getAttributes() {
+
+    /**
+     * Get the attributes of the DVD product.
+     *
+     * @return array The attributes.
+     */
+    function getAttributes()
+    {
         return [
             'size' => $this->getSize(),
         ];
