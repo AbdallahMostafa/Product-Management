@@ -15,7 +15,6 @@ $containerBuilder->addDefinitions([
     // Define EntityManager as a service
     EntityManagerInterface::class => function () {
         // Create and return the EntityManager instance
-        // Configure and initialize the EntityManager as per your specific setup
         $config = ORMSetup::createAttributeMetadataConfiguration(
             paths: array(__DIR__. "/../src/Entities"),
             isDevMode: true,
@@ -33,17 +32,14 @@ $containerBuilder->addDefinitions([
         
         // obtaining the entity manager
         $entityManager = new EntityManager($connection, $config);
-       // Example configuration using Doctrine ORM
 
         return $entityManager;
     },
     // Define ProductFactory as a service
     ProductFactroy::class => function (EntityManagerInterface $entityManager) {
         // Create and return the ProductFactory instance
-        // Perform any necessary configuration for the factory
 
         $productFactory = new ProductFactroy($entityManager);
-        // Perform any additional configuration or initialization of the factory
 
         return $productFactory;
     },
