@@ -1,37 +1,60 @@
 <?php
 
 namespace Src\Entities;
+
 use Src\Interfaces\ProductInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-
 #[ORM\Entity]
 #[ORM\Table(name:"books")]
-class BookProduct extends Product implements ProductInterface {
+class BookProduct extends Product implements ProductInterface
+{
      
-    #[ORM\Column(type:"decimal", precision:10, scale:2)]    
+    
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
     private float $weight;
 
-    
-    // #[ORM\OneToOne(targetEntity:Product::class,  inversedBy:"books", cascade:["persist"])]
-    // #[ORM\JoinColumn(name:"product_id", referencedColumnName:"id")]
-     
-    // private $product;
-    public function getWeight(): float {
+    /**
+     * Get the weight of the book product.
+     *
+     * @return float The weight.
+     */
+    public function getWeight(): float
+    {
         return $this->weight;
     }
 
-    public function setWeight(float $weight): void {
+    /**
+    * Set the weight of the book product.
+    *
+    * @param float $weight The weight to set.
+    * @return void
+    */
+    public function setWeight(float $weight): void
+    {
         $this->weight = $weight;
     }
-    function fillProductData($request) {
+    /**
+     * Fill the product data from a request.
+     *
+     * @param array $request The request data.
+     * @return BookProduct The updated BookProduct instance.
+     */
+    function fillProductData($request)
+    {
         $this->setName($request['name']);
         $this->setPrice($request['price']);
         $this->setSKU($request['SKU']);
         $this->setWeight($request['attributes']['weight']);
         return $this;
     }
-    function getAttributes() {
+    /**
+     * Get the attributes of the book product.
+     *
+     * @return array The attributes.
+     */
+    function getAttributes()
+    {
         return [
             'weight' => $this->getWeight(),
         ];
