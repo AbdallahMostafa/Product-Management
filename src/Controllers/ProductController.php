@@ -49,4 +49,23 @@ class ProductController {
             'message' => 'Product created successfully',
             'request' => $product], 201);   
     }
+    public function delete($request) {
+        
+        $requestData = json_decode(file_get_contents('php://input'), true);
+
+        $productRepository = $this->entityManager->getRepository(Product::class);
+        $productIds = $requestData['productIds'];
+
+        $products = $productRepository->findBy(['id' => $productIds]);
+
+        foreach ($products as $product) {
+            $this->entityManager->remove($product);
+        }
+
+        // Flush the changes to the database
+        $this->entityManager->flush();
+        jsonResponse([
+            'deletedProductCount' => count($products),
+        ]);
+    }
 }
