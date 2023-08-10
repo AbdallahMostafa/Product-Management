@@ -49,4 +49,27 @@ export const addProduct = (product) => {
   };
 };
 
+// Action to delete selected products
+export const deleteSelectedProducts = (selectedProductIds) => {
+  return async (dispatch) => {
+    try {
+      // Make the API call to delete the selected products from the backend
+      await productService.deleteProducts(selectedProductIds);
+
+      // If the API call is successful, update the Redux store with the remaining products
+      const updatedProductList = await productService.getProducts();
+      dispatch(setProducts(updatedProductList));
+
+      // Clear the selectedProducts array
+      dispatch({ type: 'TOGGLE_PRODUCT_SELECTION', payload: [] });
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      console.error('Error deleting products:', error);
+      // Dispatch an error action or show an error message to the user here.
+    }
+  };
+};
+
+
+
 
