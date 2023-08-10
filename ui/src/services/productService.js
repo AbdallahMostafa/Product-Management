@@ -22,6 +22,19 @@ const productService = {
         throw error;
       }
     },
+    deleteProducts: async (productIds) => {
+      try {
+        const response = await axios.delete(BASE_URL, {
+          data: {
+            productIds: productIds,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Error deleting products:', error);
+        throw error;
+      }
+    },
   };
 
 export default productService;
