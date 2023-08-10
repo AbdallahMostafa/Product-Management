@@ -24,6 +24,16 @@ const productReducer = (state = intialState
                         ? state.selectedProducts.filter((id) => id !== productId)
                         : [...state.selectedProducts, productId],
                     };
+                case 'DELETE_SELECTED_PRODUCTS':
+                    const updatedProducts = state.products.filter(product =>
+                        !state.selectedProducts.includes(product.id)
+                    );
+        
+                    return {
+                        ...state,
+                        products: updatedProducts,
+                        selectedProducts: [],
+                    };
             default: 
                 return state;
         };
