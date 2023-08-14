@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/furnitureForm.css';
-import ProductFormWithTooltips from '../components/ProductFormWithTooltips'; // Assuming the path to the ProductFormWithTooltips file
+import ProductFormWithTooltips from '../components/ProductFormWithTooltips';
 
 const FurnitureProductForm = ({ attributes, handleAttributeChange }) => {
   return (
