@@ -14,7 +14,7 @@ interface ProductInterface
     /**
      * Fill the product data using the provided request.
      *
-     * @param mixed $request The request data for filling the product details.
+     * @param  mixed $request The request data for filling the product details.
      * @return $this The implementing instance for method chaining.
      */
     function fillProductData($requets);
