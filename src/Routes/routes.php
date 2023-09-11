@@ -1,8 +1,10 @@
 <?php
-$container = require_once __DIR__ . '/../../config/container.php';
+$container = include_once __DIR__ . '/../../config/container.php';
 use Src\Controllers\ProductController;
 
-/** @var ProductController $productController */
+/**
+ * @var ProductController $productController 
+*/
 $productController = $container->get(ProductController::class);
 
 
@@ -16,5 +18,5 @@ $productController = $container->get(ProductController::class);
 return [
     ['GET', '/api/products', [$productController, 'index']],
     ['POST', '/api/products', [$productController, 'store']],
-    ['DELETE', '/api/products', [$productController, 'delete']],
+    ["DELETE", '/api/products', [$productController, 'delete']],
 ];
