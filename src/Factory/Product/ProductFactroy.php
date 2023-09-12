@@ -6,6 +6,7 @@ use Src\Entities\BookProduct;
 use Src\Entities\DVDProduct;
 use Src\Entities\FurnitureProduct;
 use Src\Entities\Product;
+use InvalidArgumentException;
 
 /**
  * Factory class for creating various types of products.
@@ -13,8 +14,8 @@ use Src\Entities\Product;
 class ProductFactroy
 {
      /**
-     * @var EntityManagerInterface The entity manager instance.
-     */
+      * @var EntityManagerInterface The entity manager instance.
+      */
     private $entityManager;
 
     /**
@@ -30,8 +31,8 @@ class ProductFactroy
     /**
      * Create a product based on the specified type and request data.
      *
-     * @param string $type The type of the product (e.g., "Book", "DVD", "Furniture").
-     * @param mixed $request The request data for filling the product details.
+     * @param  string $type    The type of the product (e.g., "Book", "DVD", "Furniture").
+     * @param  mixed  $request The request data for filling the product details.
      * @return Product The created product instance.
      * @throws InvalidArgumentException If an invalid product type is provided.
      */
@@ -44,9 +45,8 @@ class ProductFactroy
         } elseif ($type === 'Furniture') {
             $product = new FurnitureProduct();
         } else {
-            throw new InvalidArgumentException("Invalid product type: $type");
+            throw new InvalidArgumentException("Invalid product type: $type", 400);
         }
-        
         $product->fillProductData($request);
         return $product;
     }
