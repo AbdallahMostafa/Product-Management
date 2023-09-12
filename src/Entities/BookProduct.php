@@ -25,11 +25,11 @@ class BookProduct extends Product implements ProductInterface
     }
 
     /**
-    * Set the weight of the book product.
-    *
-    * @param float $weight The weight to set.
-    * @return void
-    */
+     * Set the weight of the book product.
+     *
+     * @param  float $weight The weight to set.
+     * @return void
+     */
     public function setWeight(float $weight): void
     {
         $this->weight = $weight;
@@ -37,7 +37,7 @@ class BookProduct extends Product implements ProductInterface
     /**
      * Fill the product data from a request.
      *
-     * @param array $request The request data.
+     * @param  array $request The request data.
      * @return BookProduct The updated BookProduct instance.
      */
     function fillProductData($request)
