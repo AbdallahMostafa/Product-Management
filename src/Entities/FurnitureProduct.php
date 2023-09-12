@@ -10,20 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
 class FurnitureProduct extends Product implements ProductInterface
 {
 
-    #[ORM\Column(type:"integer")]
-    private int $weight;
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
+    private float $weight;
 
-    #[ORM\Column(type:"integer")]
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
 
-    private int $height;
+    private float $height;
 
-    #[ORM\Column(type:"integer")]
-    private int $length;
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
+    private float $length;
    
     /**
      * Fill the product data from a request.
      *
-     * @param array $request The request data.
+     * @param  array $request The request data.
      * @return FurnitureProduct The updated FurnitureProduct instance.
      */
     function fillProductData($request)
@@ -40,19 +40,19 @@ class FurnitureProduct extends Product implements ProductInterface
     /**
      * Set the weight of the furniture product.
      *
-     * @param int $weight The weight to set.
+     * @param  float $weight The weight to set.
      * @return void
      */
-    public function setWeight(int $weight): void
+    public function setWeight(float $weight): void
     {
         $this->weight = $weight;
     }
     /**
      * Get the weight of the furniture product.
      *
-     * @return int The weight.
+     * @return float The weight.
      */
-    public function getWeight(): int
+    public function getWeight(): float
     {
         return $this->weight;
     }
@@ -61,10 +61,10 @@ class FurnitureProduct extends Product implements ProductInterface
     /**
      * Set the height of the furniture product.
      *
-     * @param int $height The height to set.
+     * @param  float $height The height to set.
      * @return void
      */
-    public function setHeight(int $height): void
+    public function setHeight(float $height): void
     {
         $this->height = $height;
     }
@@ -72,27 +72,27 @@ class FurnitureProduct extends Product implements ProductInterface
     /**
      * Get the height of the furniture product.
      *
-     * @return int The height.
+     * @return float The height.
      */
-    public function getHeight(): int
+    public function getHeight(): float
     {
         return $this->height;
     }
     /**
      * Set the length of the furniture product.
      *
-     * @param int $length The length to set.
+     * @param  float $length The length to set.
      * @return void
      */
 
-    public function setLength(int $length)
+    public function setLength(float $length)
     {
         $this->length = $length;
     }
     /**
      * Get the length of the furniture product.
      *
-     * @return int The length.
+     * @return float The length.
      */
     public function getLength()
     {

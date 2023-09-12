@@ -10,14 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 class DVDProduct extends Product implements ProductInterface
 {
 
-    #[ORM\Column(type: 'integer')]
-    protected int $size;
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
+    protected float $size;
     
 
     /**
      * Fill the product data from a request.
      *
-     * @param array $request The request data.
+     * @param  array $request The request data.
      * @return DVDProduct The updated DVDProduct instance.
      */
     function fillProductData($request)
@@ -29,22 +29,22 @@ class DVDProduct extends Product implements ProductInterface
         return $this;
     }
      /**
-     * Get the size of the DVD product.
-     *
-     * @return int The size.
-     */
-    public function getSize(): int
+      * Get the size of the DVD product.
+      *
+      * @return float The size.
+      */
+    public function getSize(): float
     {
         return $this->size;
     }
      /**
-     * Set the size of the DVD product.
-     *
-     * @param int $size The size to set.
-     * @return void
-     */
+      * Set the size of the DVD product.
+      *
+      * @param  float $size The size to set.
+      * @return void
+      */
 
-    public function setSize(int $size): void
+    public function setSize(float $size): void
     {
         $this->size = $size;
     }

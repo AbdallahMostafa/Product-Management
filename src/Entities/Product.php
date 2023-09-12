@@ -7,11 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name:"products")]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type:"string")]
-#[ORM\DiscriminatorMap([
+#[ORM\DiscriminatorMap(
+    [
       "Book" => BookProduct::class,
       "DVD" => DVDProduct::class,
       "Furniture" => FurnitureProduct::class
- ])]
+    ]
+)]
 abstract class Product
 {
     
@@ -23,14 +25,14 @@ abstract class Product
     protected string $SKU;
     #[ORM\Column(type: 'string')]
     protected string $name;
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type:"decimal", precision:10, scale:2)]
     protected int $price;
 
      /**
-     * Get the unique identifier of the product.
-     *
-     * @return int|null The product ID.
-     */
+      * Get the unique identifier of the product.
+      *
+      * @return int|null The product ID.
+      */
     public function getId(): ?int
     {
         return $this->id;
@@ -38,7 +40,7 @@ abstract class Product
     /**
      * Set the name of the product.
      *
-     * @param string $name The product name.
+     * @param  string $name The product name.
      * @return void
      */
     public function setName($name): void
@@ -46,10 +48,10 @@ abstract class Product
         $this->name =$name;
     }
      /**
-     * Get the name of the product.
-     *
-     * @return string The product name.
-     */
+      * Get the name of the product.
+      *
+      * @return string The product name.
+      */
     public function getName(): string
     {
         return $this->name;
@@ -58,7 +60,7 @@ abstract class Product
     /**
      * Set the Stock Keeping Unit (SKU) of the product.
      *
-     * @param string $SKU The product SKU.
+     * @param  string $SKU The product SKU.
      * @return void
      */
     public function setSKU($SKU): void
@@ -66,10 +68,10 @@ abstract class Product
         $this->SKU = $SKU;
     }
      /**
-     * Get the Stock Keeping Unit (SKU) of the product.
-     *
-     * @return string The product SKU.
-     */
+      * Get the Stock Keeping Unit (SKU) of the product.
+      *
+      * @return string The product SKU.
+      */
     public function getSKU(): string
     {
         return $this->SKU;
@@ -78,7 +80,7 @@ abstract class Product
     /**
      * Set the price of the product.
      *
-     * @param int $price The product price.
+     * @param  int $price The product price.
      * @return void
      */
     public function setPrice($price): void
