@@ -3,9 +3,10 @@
 namespace Src\Controllers;
 
 use Doctrine\ORM\EntityManagerInterface;
-require_once __DIR__ .'/helpers/response.php';
 use Src\Factory\Product\ProductFactroy;
 use Src\Entities\Product;
+use Src\Controllers\Helpers\JSONResponse;
+use Throwable;
 
 /**
  * ProductController handles product operations.
@@ -23,12 +24,13 @@ class ProductController
     private $factory;
 
      /**
-     * ProductController constructor.
-     *
-     * @param EntityManagerInterface $entityManager The entity manager instance.
-     * @param ProductFactroy $factory The product factory instance.
-     */
-    public function __construct(EntityManagerInterface $entityManager, ProductFactroy $factory)
+      * ProductController constructor.
+      *
+      * @param EntityManagerInterface $entityManager The entity manager instance.
+      * @param ProductFactroy         $factory       The product factory instance.
+      */
+
+    public function __construct(EntityManagerInterface $entityManager, ProductFactroy $factory, )
     {
         $this->factory = $factory;
         $this->entityManager = $entityManager;
@@ -37,7 +39,7 @@ class ProductController
     /**
      * Fetches and responds with a list of products.
      */
-    public function index()
+    public function index() : JSONResponse
     {
         $productRepository = $this->entityManager->getRepository(Product::class);
         $products = $productRepository->findAll();
@@ -57,24 +59,36 @@ class ProductController
                 'attributes' => $product->getAttributes(),
             ];
         }
-
-        // Respond with the fetched product data
-        jsonResponse($productData, 200);
+        $response = new JSONResponse($productData, 200);
+        return $response;
     }
     /**
      * Creates and stores a new product.
      *
      * @param array $request The product data from the request.
      */
-    public function store($request)
+    public function store($request) : JSONResponse
     {
-        $product = $this->factory->createProduct($request['type'], $request);
-        
-        $this->entityManager->persist($product);
-        $this->entityManager->flush();
-        jsonResponse([
+        try {
+            $product = $this->factory->createProduct($request['type'], $request);
+            $this->entityManager->persist($product);
+            $this->entityManager->flush();
+        } catch (Throwable $exception) {
+            $response = new JSONResponse(
+                [ 'message' => $exception->getMessage()],
+                $exception->getCode() ? $exception->getCode : 400
+            );
+         
+                return $response;
+        }
+           
+        $response = new JSONResponse(
+            [
             'message' => 'Product created successfully',
-            'request' => $product], 201);
+            'request' => $product], 
+            201
+        );
+        return $response;
     }
 
     /**
@@ -82,24 +96,30 @@ class ProductController
      *
      * @param array $request The request data containing product IDs.
      */
-    public function delete($request)
+    public function delete($request) : JSONResponse
     {
         
-        $requestData = json_decode(file_get_contents('php://input'), true);
-
+        $requestData = $request;
+        
         $productRepository = $this->entityManager->getRepository(Product::class);
         $productIds = $requestData['productIds'];
 
         $products = $productRepository->findBy(['id' => $productIds]);
-
+        
         foreach ($products as $product) {
             $this->entityManager->remove($product);
         }
-
+        
         // Flush the changes to the database
         $this->entityManager->flush();
-        jsonResponse([
-            'deletedProductCount' => count($products),
-        ]);
+        
+        
+        $response = new JSONResponse(
+            [
+            'message' => 'Products deleted successfully',
+            'deletedProductCount' => count($products)], 
+            202
+        );
+        return $response;
     }
 }
