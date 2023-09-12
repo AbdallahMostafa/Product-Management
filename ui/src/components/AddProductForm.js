@@ -34,15 +34,32 @@
           };
         const handleSubmit = async (event) => {
                 event.preventDefault();
-                
-
-
+                const requiredFields = {
+                    DVD: ['size'],
+                    Book: ['weight'],
+                    Furniture: ['height', 'width', 'length'],
+                };
+            
+                const basicRequiredFields = ['name', 'price', 'SKU', 'type'];
+                if (basicRequiredFields.some(field => !formState[field] || formState[field].trim() === '')) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+            
+                const type = formState.type;
+                if (requiredFields[type]) {
+                    const missingFields = requiredFields[type].filter(field => !formState.attributes[field] || formState.attributes[field] <= 0);
+                    if (missingFields.length > 0) {
+                        const typeLabel = type === 'DVD' ? 'DVD' : (type === 'Book' ? 'Book' : 'Furniture');
+                        alert(`Please fill in all required ${typeLabel} fields`);
+                        return;
+                    }
+                }
+            
                 const product = new Product(name, price, attributes, SKU, type);
-                
-                console.log(product);
                 try {
-                    addProduct(product);
-                    alert('Product added successfully!');
+                    await addProduct(product);
+                    // alert('Product added successfully!'); // this alreat is annoying
                     navigate('/');
                 } catch (error) {
                     console.error('Error adding product:', error);
@@ -63,7 +80,7 @@
             <div>
                 <header className='form-header'>
                     <div>
-                        <h2>Product Add</h2>
+                        <h2 id="product-header">Product Add</h2>
                     </div>
                     <Button onClick={handleSubmit} variant="success" >Save</Button>
                 </header>
