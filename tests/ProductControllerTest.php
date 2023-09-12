@@ -107,10 +107,70 @@ class ProductControllerTest extends TestCase
         ];
 
         $expectedOutputJson = json_encode($expectedOutput);
-        ob_start();
-        $controller->index();
-        $actualOutput = ob_get_clean();
-
-        $this->assertEquals($expectedOutputJson, $actualOutput);
+        $actualOutput = $controller->index();        
+        $this->assertEquals($expectedOutputJson, $actualOutput->getBody());
     }
+    public function testFillProductData()
+    {
+
+        // Create a request array for a BookProduct
+        $request = [
+        'type' => 'Book',
+        'SKU' => 'BBB123',
+        'name' => 'New Book',
+        'price' => 20,
+        'attributes' => [
+            'weight' => 5
+        ]
+        ];
+
+        // Create an instance of BookProduct
+        $bookProduct = new BookProduct();
+
+        // Call fillProductData on the BookProduct instance
+        $bookProduct->fillProductData($request);
+
+        $this->assertEquals('BBB123', $bookProduct->getSKU());
+        $this->assertEquals('New Book', $bookProduct->getName());
+        $this->assertEquals(20, $bookProduct->getPrice());
+        $this->assertEquals(5, $bookProduct->getWeight());
+
+    }
+
+
+    public function testDeleteProduct()
+    {
+        $Book = new BookProduct();
+        $Book->setSKU('ABC123');
+        $Book->setName('Book');
+        $Book->setPrice(20);
+        $Book->setWeight(10);
+        $this->entityManager->persist($Book);
+
+        $DVD = new DVDProduct();
+        $DVD->setSKU('XYZ123');
+        $DVD->setName('DVD');
+        $DVD->setPrice(10);
+        $DVD->setSize(10);
+        $this->entityManager->persist($DVD);
+
+        $this->entityManager->flush();
+
+        $factory = $this->createMock(ProductFactroy::class);
+
+        $controller = new ProductController($this->entityManager, $factory);
+
+        // Define the request data for deletion
+        $request = [
+        'productIds' => [$Book->getId(), $DVD->getId()],
+        ];
+        // Simulate the delete request
+        $output = $controller->delete($request);
+        $responseData = $output->getBody();
+        $responseData = json_decode($responseData, true);
+        
+        $this->assertArrayHasKey('deletedProductCount', $responseData);
+        $this->assertEquals(2, json_encode($responseData['deletedProductCount']));
+    }
+
 }
