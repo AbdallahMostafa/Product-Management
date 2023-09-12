@@ -17,5 +17,9 @@
             "type": "path",
             "url": "./Autoloader/"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.3",
+        "mockery/mockery": "^1.6"
+    }
 }
