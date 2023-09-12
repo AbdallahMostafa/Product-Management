@@ -7,6 +7,7 @@ use Src\Factory\Product\ProductFactroy;
 use Src\Entities\Product;
 use Src\Controllers\Helpers\JSONResponse;
 use Throwable;
+use Src\Utilities\ProductValidator;
 
 /**
  * ProductController handles product operations.
@@ -69,6 +70,13 @@ class ProductController
      */
     public function store($request) : JSONResponse
     {
+        $validationErrors = ProductValidator::validateProductInput($request);
+        
+        if (!empty($validationErrors)) {
+            $response = new JSONResponse(['errors' => $validationErrors], 400);
+            return $response;
+        }
+
         try {
             $product = $this->factory->createProduct($request['type'], $request);
             $this->entityManager->persist($product);
