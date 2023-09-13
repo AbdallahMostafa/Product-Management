@@ -1,10 +1,13 @@
 import React from 'react';
- 
-const BookProductForm = ({ attributes, handleAttributeChange }) => {
+import ProductFormWithTooltips from '../components/ProductFormWithTooltips';
+
+const BookProductForm = ({ handleAttributeChange }) => {
   return (
     <div>
-      <label htmlFor="weight" className='lable-style'>Weight (Kg):</label>
-      <input  className="input-style" type="number" name="weight"   onChange={(e) => handleAttributeChange('weight', e.target.value)} />
+      <label htmlFor="weight">Weight:</label>
+      <ProductFormWithTooltips title="Enter weight in KG">
+        <input  className="input-style" type="number" id="weight" name="weight" placeholder="Enter Weight"  onChange={(e) => handleAttributeChange('weight', e.target.value)} />
+      </ProductFormWithTooltips>
     </div>
   );
 };
