@@ -32,18 +32,17 @@ describe('DVDProductForm Component', () => {
 
 
     it('should handle attribute change for weight input', () => {
-    const handleAttributeChange = jest.fn(); // Mock function to track changes
+    const handleAttributeChange = jest.fn(); 
     
     const { getByLabelText } = render(
         <DVDProductForm handleAttributeChange={handleAttributeChange} />
     );
 
-    const sizeInput = getByLabelText('Size:'); // Find the input by label text
+    const sizeInput = getByLabelText('Size:'); 
     
-    // Simulate a change event on the input
     fireEvent.change(sizeInput, { target: { value: '10' } });
 
-    // Check if the mock function was called with the expected arguments
+    
     expect(handleAttributeChange).toHaveBeenCalledWith('size', '10');
     });
 

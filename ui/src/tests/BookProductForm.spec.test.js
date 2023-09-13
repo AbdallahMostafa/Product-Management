@@ -1,4 +1,4 @@
-import {render, screen, fireEvent, waitFor} from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import React from 'react';
 import BookProductForm from '../productForms/BookProductForm';
 
@@ -32,18 +32,16 @@ describe('BookProductForm Component', () => {
 
 
     it('should handle attribute change for weight input', () => {
-    const handleAttributeChange = jest.fn(); // Mock function to track changes
+    const handleAttributeChange = jest.fn(); 
     
     const { getByLabelText } = render(
         <BookProductForm handleAttributeChange={handleAttributeChange} />
     );
 
-    const weightInput = getByLabelText('Weight:'); // Find the input by label text
+    const weightInput = getByLabelText('Weight:'); 
     
-    // Simulate a change event on the input
     fireEvent.change(weightInput, { target: { value: '10' } });
 
-    // Check if the mock function was called with the expected arguments
     expect(handleAttributeChange).toHaveBeenCalledWith('weight', '10');
     });
 
