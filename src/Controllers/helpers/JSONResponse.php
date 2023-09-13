@@ -3,7 +3,6 @@
 namespace Src\Controllers\Helpers;
 
 use Src\Interfaces\JSONResponseInterface;
-use Src\Utilities\CorsUtility;
 class JSONResponse implements JSONResponseInterface
 {
     private $statusCode;
