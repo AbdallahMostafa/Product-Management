@@ -32,6 +32,18 @@
             };
             setFormField('attributes', newAttributes); // This dispatches the action for the attributes object
           };
+        
+        const displayAlert = (message, type) => {
+        const alertContainer = document.getElementById('alert-container');
+        alertContainer.innerHTML = `
+            <div class="alert alert-${type}" role="alert">
+            ${message}
+            </div>
+        `;
+        setTimeout(() => {
+            alertContainer.innerHTML = ''; 
+        }, 5000); 
+        };
         const handleSubmit = async (event) => {
                 event.preventDefault();
                 const requiredFields = {
@@ -42,7 +54,7 @@
             
                 const basicRequiredFields = ['name', 'price', 'SKU', 'type'];
                 if (basicRequiredFields.some(field => !formState[field] || formState[field].trim() === '')) {
-                    alert('Please fill in all required fields');
+                    displayAlert('Please fill in all required fields!', 'danger');
                     return;
                 }
             
@@ -51,7 +63,7 @@
                     const missingFields = requiredFields[type].filter(field => !formState.attributes[field] || formState.attributes[field] <= 0);
                     if (missingFields.length > 0) {
                         const typeLabel = type === 'DVD' ? 'DVD' : (type === 'Book' ? 'Book' : 'Furniture');
-                        alert(`Please fill in all required ${typeLabel} fields`);
+                        displayAlert(`Please fill in all required ${typeLabel} fields`, 'danger');
                         return;
                     }
                 }
@@ -59,21 +71,22 @@
                 const product = new Product(name, price, attributes, SKU, type);
                 try {
                     await addProduct(product);
-                    // alert('Product added successfully!'); // this alreat is annoying
-                    navigate('/');
+                    displayAlert('Product added successfully!', 'success');
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 2000);
                 } catch (error) {
                     console.error('Error adding product:', error);
-
-                    alert('Falied to add product. Please try again.');
+                    displayAlert('Falied to add product. Please try again.', 'danger');
                 }
                 
             
         };
 
         const typeSpecificFields = {
-            DVD: <DVDProductForm attributes={attributes} handleAttributeChange={handleAttributeChange} />,
-            Book: <BookProductForm attributes={attributes} handleAttributeChange={handleAttributeChange} />,
-            Furniture: <FurnitureProductForm  attributes={attributes} handleAttributeChange={handleAttributeChange} />,
+            DVD: <DVDProductForm handleAttributeChange={handleAttributeChange} />,
+            Book: <BookProductForm handleAttributeChange={handleAttributeChange} />,
+            Furniture: <FurnitureProductForm handleAttributeChange={handleAttributeChange} />,
         };
         
         return (
@@ -85,6 +98,7 @@
                     <Button onClick={handleSubmit} variant="success" >Save</Button>
                 </header>
                 <hr></hr>
+                <div id="alert-container"></div>
                 <form className="form-container">
                     
                     <label htmlFor="name" className="label-style">Name:</label>
@@ -114,7 +128,7 @@
     };
 
 const mapStateToProps = (state) => ({
-    formState: state.addProductForm, // Use the correct reducer name
+    formState: state.addProductForm,
 });
     
 const mapDispatchToProps = {
