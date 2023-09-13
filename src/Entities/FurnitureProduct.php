@@ -11,7 +11,7 @@ class FurnitureProduct extends Product implements ProductInterface
 {
 
     #[ORM\Column(type:"decimal", precision:10, scale:2)]
-    private float $weight;
+    private float $width;
 
     #[ORM\Column(type:"decimal", precision:10, scale:2)]
 
@@ -31,7 +31,7 @@ class FurnitureProduct extends Product implements ProductInterface
         $this->setName($request['name']);
         $this->setPrice($request['price']);
         $this->setSKU($request['SKU']);
-        $this->setWeight($request['attributes']['weight']);
+        $this->setWidth($request['attributes']['width']);
         $this->setHeight($request['attributes']['height']);
         $this->setLength($request['attributes']['length']);
         return $this;
@@ -40,21 +40,21 @@ class FurnitureProduct extends Product implements ProductInterface
     /**
      * Set the weight of the furniture product.
      *
-     * @param  float $weight The weight to set.
+     * @param  float $width The weight to set.
      * @return void
      */
-    public function setWeight(float $weight): void
+    public function setWidth(float $width): void
     {
-        $this->weight = $weight;
+        $this->width = $width;
     }
     /**
      * Get the weight of the furniture product.
      *
      * @return float The weight.
      */
-    public function getWeight(): float
+    public function getWidth(): float
     {
-        return $this->weight;
+        return $this->width;
     }
 
 
@@ -107,7 +107,7 @@ class FurnitureProduct extends Product implements ProductInterface
     function getAttributes()
     {
         return [
-            'weight' => $this->getWeight(),
+            'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'length' => $this->getLength()
         ];
