@@ -6,9 +6,9 @@ const productConfig = {
       attributes: ['weight'],
     },
     Furniture : {
-      attributes: ['length', 'weight', 'height'],
+      attributes: ['length', 'width', 'height'],
       renderAttributes: (attributes) =>
-        `Dimensions: ${attributes.length} x ${attributes.weight} x ${attributes.height}`,
+        `Dimensions: ${attributes.length} x ${attributes.width} x ${attributes.height}`,
     },
   };
   
