@@ -45,6 +45,7 @@ export const addProduct = (product) => {
       // Handle any errors that occur during the API call
       console.error('Error adding product:', error);
       // dispatch an error action or show an error message to the user here.
+      throw error;
     }
   };
 };
@@ -66,6 +67,7 @@ export const deleteSelectedProducts = (selectedProductIds) => {
       // Handle any errors that occur during the API call
       console.error('Error deleting products:', error);
       // Dispatch an error action or show an error message to the user here.
+      throw error;
     }
   };
 };
