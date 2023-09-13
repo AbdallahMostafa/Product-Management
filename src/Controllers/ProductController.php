@@ -68,7 +68,7 @@ class ProductController
      *
      * @param array $request The product data from the request.
      */
-    public function store($request) : JSONResponse
+    public function store($request) :JSONResponse
     {
         $validationErrors = ProductValidator::validateProductInput($request);
         
@@ -87,13 +87,14 @@ class ProductController
                 $exception->getCode() ? $exception->getCode : 400
             );
          
-                return $response;
+            return $response;
         }
            
         $response = new JSONResponse(
             [
-            'message' => 'Product created successfully',
-            'request' => $product], 
+                'message' => 'Product created successfully',
+                'request' => $product
+            ], 
             201
         );
         return $response;
