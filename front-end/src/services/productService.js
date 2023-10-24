@@ -28,6 +28,9 @@ const productService = {
           data: {
             productIds: productIds,
           },
+          headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+          },
         });
         return response.data;
       } catch (error) {

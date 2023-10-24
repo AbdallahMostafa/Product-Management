@@ -1,0 +1,16 @@
+.header-contaier{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+.container-div {
+    display: flex; 
+    /* justify-content: space-between; */
+    align-items: center;
+}
+Button {
+    margin-right: 10px !important;
+}
+/* link {
+    margin-left: 10px  !important;
+} */
