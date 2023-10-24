@@ -77,6 +77,17 @@ class ProductController
             return $response;
         }
 
+         // Check if a product with the same SKU already exists
+         $existingProduct = $this->entityManager->getRepository(Product::class)->findOneBy(['SKU' => $request['SKU']]);
+
+        if ($existingProduct) {
+            $response = new JSONResponse(
+                ['message' => 'Product with the same SKU already exists'],
+                400
+            );
+            return $response;
+        }
+        
         try {
             $product = $this->factory->createProduct($request['type'], $request);
             $this->entityManager->persist($product);

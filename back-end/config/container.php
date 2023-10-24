@@ -23,11 +23,12 @@ $containerBuilder->addDefinitions([
         
         // configuring the database connection
         $connection = DriverManager::getConnection([
-            'host'     => 'db',
+            'host' => 'ls-618a7bdbb6b848a5c511ac2862b5e2ee889af7ff.cskd1ux142rx.eu-west-3.rds.amazonaws.com',
             'driver'   => 'pdo_mysql',
-            'user'     => 'user',
+            'user'     => 'admin',
             'password' => 'password',
-            'dbname'   => 'app',
+            'dbname'   => 'dbapp',
+            'port'     => 3306
         ], $config);
         
         // obtaining the entity manager

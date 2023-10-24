@@ -21,7 +21,7 @@ abstract class Product
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
     private int|null $id = null;
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', unique: true)]
     protected string $SKU;
     #[ORM\Column(type: 'string')]
     protected string $name;

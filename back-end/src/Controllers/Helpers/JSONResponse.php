@@ -14,7 +14,14 @@ class JSONResponse implements JSONResponseInterface
     {
         $this->headers = array_merge(['Content-Type' => 'application/json'], $headers); 
         $this->statusCode = $statusCode;
-        $this->data = json_encode($data);
+    
+        // Check if $data can be encoded as JSON
+        $jsonData = json_encode($data);
+        if ($jsonData === false) {
+            throw new \InvalidArgumentException('Invalid JSON data provided.');
+        }
+    
+        $this->data = $jsonData;
     }
     public function getHeaders()
     {
