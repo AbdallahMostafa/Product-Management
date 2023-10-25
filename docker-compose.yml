@@ -45,14 +45,14 @@ services:
         ports:
             - "3306"
     
-    # phpmyadmin:
-    #     image: phpmyadmin/phpmyadmin
-    #     ports:
-    #         - '8080:80'
-    #     restart: always
-    #     environment:
-    #         PMA_HOST: db
-    #         SERVICE_TAGE: phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '8080:80'
+        restart: always
+        environment:
+            PMA_HOST: db
+            SERVICE_TAGE: phpmyadmin
 
-    #     depends_on:
-    #         - db
+        depends_on:
+            - db
