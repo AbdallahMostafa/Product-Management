@@ -28,10 +28,10 @@ COPY . .
 
 RUN composer install
 
-EXPOSE 8080
+EXPOSE 8000
 
 # COPY apache-custom.conf /etc/apache2/sites-available/000-custom.conf
-COPY ports.conf /etc/apache2/ports.conf
+# COPY ports.conf /etc/apache2/ports.conf
 # COPY apache-custom.conf /etc/apache2/sites-available/000-default.conf
 
 # RUN a2ensite 000-custom.conf
