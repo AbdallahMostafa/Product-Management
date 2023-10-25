@@ -14,8 +14,8 @@ services:
             SERVICE_TAGE: ui
 
             
-    php-apache-environment:
-        container_name: php-apache
+    php:
+        container_name: php
         restart: always
         build:
             context: ./back-end
@@ -55,4 +55,4 @@ services:
             SERVICE_TAGE: phpmyadmin
 
         depends_on:
-            - db
+            - database
