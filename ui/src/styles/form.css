@@ -39,4 +39,62 @@
     cursor: pointer;
   };
 
+.error-message {
+    color: red;
+}
+.input-message{
+    color: red;
+}
 
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .form-container {
+      padding: 10px; 
+    }
+  
+    .label-style {
+      font-size: 16px; 
+    }
+  
+    .input-style {
+      width: 100%; 
+      font-size: 16px; 
+      margin: 5px 0; 
+    }
+  
+    .select-style {
+      width: 100%; 
+      font-size: 16px; 
+      margin: 5px 0; 
+    }
+  
+    .button-style {
+      width: 100%; 
+      font-size: 16px; 
+      margin: 10px 0; 
+    }
+    .error-message {
+        font-size: 14px; 
+        color: red;
+    }
+    .input-message{
+        font-size: 14px; 
+        color: red;
+    }
+  
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    #product-header {
+      font-size: 24px; 
+    }
+  
+    .alert {
+      font-size: 14px; 
+      margin: 10px 0;
+    }
+  }
+  
