@@ -1,4 +1,4 @@
-    import React from 'react';
+    import {React, useState} from 'react';
     import { useNavigate, useLocation } from 'react-router-dom';
     
     import Product from '../models/Product';
@@ -18,11 +18,25 @@
 
         
         const navigate = useNavigate();
-
+        
+        const [nameError,  setNameError] = useState('');
+        const [priceError, setPriceError] = useState('');
+        const [skuError, setSKUError] = useState('');
+        const [typeError, setTypeError] = useState('');
 
         const handleFieldChange = (event) => {
             const { name, value } = event.target;
-            setFormField(name, value);
+            if (name === 'name') {
+                setNameError('');
+              } else if (name === 'price') {
+                setPriceError('');
+              } else if (name === 'SKU') {
+                setSKUError('');
+              } else if (name === 'type') {
+                setTypeError('');
+              }
+              setFormField(name, value);
+
         };
     
         const handleAttributeChange = (attributeName, attributeValue) => {
@@ -51,13 +65,23 @@
                     Book: ['weight'],
                     Furniture: ['height', 'width', 'length'],
                 };
-            
+        
                 const basicRequiredFields = ['name', 'price', 'SKU', 'type'];
-                if (basicRequiredFields.some(field => !formState[field] || formState[field].trim() === '')) {
-                    displayAlert('Please fill in all required fields!', 'danger');
-                    return;
+                const individualFieldErrors = [];
+                
+                basicRequiredFields.forEach(field => {
+                  if (!formState[field] || formState[field].trim() === '') {
+                    individualFieldErrors.push(`Please enter a value for ${field}`);
+                  }
+                });
+                
+                if (individualFieldErrors.length > 0) {
+                  const errorMessage = individualFieldErrors.join('<br>'); 
+                
+                  displayAlert(errorMessage, 'danger');
+                  return;
                 }
-            
+                
                 const type = formState.type;
                 if (requiredFields[type]) {
                     const missingFields = requiredFields[type].filter(field => !formState.attributes[field] || formState.attributes[field] <= 0);
@@ -67,6 +91,7 @@
                         return;
                     }
                 }
+               
             
                 const product = new Product(name, price, attributes, SKU, type);
                 try {
@@ -90,7 +115,7 @@
         };
         
         return (
-            <div>
+            <div id='product_form'> 
                 <header className='form-header'>
                     <div>
                         <h2 id="product-header">Product Add</h2>
@@ -99,24 +124,61 @@
                 </header>
                 <hr></hr>
                 <div id="alert-container"></div>
-                <form className="form-container">
+                <form className="form-container" id='product_form'>
                     
-                    <label htmlFor="name" className="label-style">Name:</label>
-                    <input className="input-style" type="text" id="name"  value={name} name="name" onChange={handleFieldChange}/>
+                    <label htmlFor="name" className="label-style">Name: </label>
+                    <input
+                        className="input-style"
+                        type="text"
+                        id="name"
+                        value={name}
+                        name="name"
+                        onChange={handleFieldChange}
+                        onBlur={() => !name && setNameError('Please enter a value for Name')}
+                    />
+                    {nameError && <span className="input-message error-message">{nameError}</span>}
 
                     <label htmlFor="price" className='label-style'>Price:</label>
-                    <input className='input-style'type="number" id="price" name="price" value={price} onChange={handleFieldChange}/>
-
-                    <label htmlFor="SKU" className='label-style'>SKU:</label>
-                    <input className='input-style' type="text" id="SKU" value={SKU} name="SKU" onChange={handleFieldChange}/>
+                    <input
+                        className="input-style"
+                        type="number"
+                        id="price"
+                        name="price"
+                        value={price}
+                        onChange={handleFieldChange}
+                        onBlur={() => !price && setPriceError('Please enter a value for Price')}
+                    />
+                    {priceError && <span className="input-message error-message">{priceError}</span>}
+                    
+                    <label htmlFor="sku" className="label-style">SKU: </label>
+                    <input
+                        className="input-style"
+                        type="text"
+                        id="sku"
+                        value={SKU}
+                        name="SKU"
+                        onChange={handleFieldChange}
+                        onBlur={() => !SKU && setSKUError('Please enter a value for SKU')}
+                    />
+                    {skuError && <span className="input-message error-message">{skuError}</span>}
 
                     <label htmlFor="type" className='label-style'>Type:</label>
-                    <select className="select-style" id="type" value={type} name='type' onChange={handleFieldChange}>
+                    <select
+                        className="select-style"
+                        id="productType"
+                        value={type}
+                        name="type"
+                        onChange={handleFieldChange}
+                        onBlur={() => !type && setTypeError('Please select a product type')}
+                    >                        
                         <option value="">Select a type</option>
                         <option value="DVD">DVD</option>
                         <option value="Book">Book</option>
                         <option value="Furniture">Furniture</option>
                     </select>
+                    
+                    {typeError && <span className="input-message error-message">{typeError}</span>}
+
                     {typeSpecificFields[type]}
 
                     <button className='button-style' type="button" onClick={() => navigate('/')}>
