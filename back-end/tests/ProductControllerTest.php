@@ -60,7 +60,7 @@ class ProductControllerTest extends TestCase
         $furniture->setSKU('DDFFGG');
         $furniture->setName('Furniture');
         $furniture->setPrice(10);
-        $furniture->setWeight(10);
+        $furniture->setWidth(10);
         $furniture->setHeight(10);
         $furniture->setLength(10);
 
@@ -99,7 +99,7 @@ class ProductControllerTest extends TestCase
                'name' => 'Furniture',
                'price' => 10,
                'attributes' => [
-                   'weight' => 10,
+                   'width' => 10,
                    'height' => 10,
                    'length' => 10
                ]
