@@ -33,9 +33,9 @@ const ProductList = ( {products, loading, selectedProducts, setProducts, toggleP
         toggleProductSelection(productId); // Dispatching action to toggle product selection in the Redux store
     };
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
+    // if (loading) {
+    //     return <p>Loading...</p>;
+    // }
     
     const attributeUnitMap = {
         size: 'MB',
@@ -64,21 +64,19 @@ const ProductList = ( {products, loading, selectedProducts, setProducts, toggleP
         // Render the attributes
         return <Card.Text>{renderedAttributes}</Card.Text>;
     };
-    return (
-        <div> 
-            <header className="header-contaier">
-                <h2> Product List </h2>
-                <div className="container-div">
-                        <div>
-                            <Link to="/add-product">
-                                <Button variant="primary">Add Product</Button>
-                            </Link>
-                            <Button variant="danger" onClick={handleDelete}>
-                                Mass Delete
-                            </Button>
+        return (
+            <div> 
+                <nav>
+                <header className="header-contaier">
+                    <h2> Product List </h2>
+                    <div className="container-div">
+                        <Link to="/add-product">
+                            <Button  variant="primary" >ADD</Button>
+                        </Link>
+                        <Button   variant="danger" onClick={handleDelete}>MASS DELETE</Button>
                     </div>
-                </div>
-            </header>
+                </header>
+                </nav>
             {Array.isArray(products) && products.length > 0 ? (
                  <CardGroup>
                 {products.map((product) => (
@@ -86,7 +84,7 @@ const ProductList = ( {products, loading, selectedProducts, setProducts, toggleP
                         <div className="custom-control custom-checkbox checkbox-top-left">
                             <input
                             type="checkbox"
-                            className="custom-control-input"
+                            className="custom-control-input delete-checkbox"
                             id={`checkbox-${product.id}`}
                             checked={selectedProducts.includes(product.id)}
                             onChange={() => handleCheckboxChange(product.id)}
