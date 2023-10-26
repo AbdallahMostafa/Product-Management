@@ -7,10 +7,9 @@ Welcome to the back-end of our Product Management application! This README provi
 1. [Project Overview](#project-overview)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-3. [Development](#development)
-    - [Project Structure](#project-structure)
-    - [Running the Development Server](#running-the-development-server)
-4. [Project Components](#project-components)
+3. [Development](##development)
+    - [Project Structure](###project-structure)
+4. [Project Components](##project-components)
 4. [Testing](#testing)
     - [Unit Tests](#unit-tests)
 
